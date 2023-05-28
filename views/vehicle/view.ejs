@@ -1,0 +1,50 @@
+<%- include("../partials/navbar.ejs") %>
+<link rel="stylesheet" href="/css/view-customer.css" />
+<main class="main my-3 container-fluid text-center">
+  <div class="info">
+    <h1 class="h5 text-danger fw-500">Customer</h1>
+    <img src="<%= owner.coverImagePath %>" alt="" />
+
+    <table class="table table-hover">
+      <tbody>
+        <tr>
+          <td>Owner's Name</td>
+          <td><%= owner.firstName %> <%= owner.lastName %></td>
+        </tr>
+        <tr>
+          <td>Number</td>
+          <td><%= vehicle.number %></td>
+        </tr>
+        <tr>
+          <td>Name</td>
+          <td><%= vehicle.name %></td>
+        </tr>
+        <tr>
+          <td>Color</td>
+          <td><%= vehicle.color %></td>
+        </tr>
+        <tr>
+          <td>Roadworthy Start Date</td>
+          <td><%= new Date(vehicle.rwStart).toLocaleDateString()%></td>
+        </tr>
+        <tr>
+          <td>Roadworthy Renewal Date</td>
+          <td><%= new Date(vehicle.rwRenew).toLocaleDateString()%></td>
+        </tr>
+        <tr>
+          <td>Insurance Type</td>
+          <td><%= vehicle.insType %></td>
+        </tr>
+        <tr>
+          <td>Use</td>
+          <td><%= vehicle.use %></td>
+        </tr>
+        <tr>
+          <td>Member Since</td>
+          <td><%= new Date(vehicle.createdAt).toLocaleDateString()%></td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</main>

@@ -1,0 +1,23 @@
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-position: center;
+  background-size: cover;
+  background-image: linear-gradient(#1b0044e1, #00033ce6),
+    url(../assets/background.jpg);
+}
+
+main .container-fluid {
+  color: #ffffffd0;
+  text-align: center;
+}
+
+main .container-fluid .form {
+  text-align: left;
+}
+
+main .container-fluid b {
+  color: #acff2fdc;
+}

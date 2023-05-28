@@ -1,0 +1,26 @@
+section{
+  height: 80vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+img {
+  border-radius: 50%;
+  border: 4px solid #80808041;
+  margin-right: 0.5em;
+}
+
+.content i{
+  font-size: larger;
+}
+
+.deleteForm button {
+  outline: none;
+  border: none;
+  background: transparent;
+}
+
+.createdAt{
+  font-size: smaller;
+  font-weight: 600;
+}

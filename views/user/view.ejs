@@ -1,0 +1,44 @@
+<%- include("../partials/navbar.ejs") %>
+<main class="main my-3 container-fluid text-center">
+  <div class="info">
+    <h1 class="h5 text-danger fw-500">Staff</h1>
+   
+    <table class="table table-hover">
+      <tbody>
+        <tr>
+          <td>First Name</td>
+          <td><%= _user.firstName %></td>
+        </tr>
+        <tr>
+          <td>Last Name</td>
+          <td><%= _user.lastName %></td>
+        </tr>
+        <tr>
+          <td>Phone</td>
+          <td><%= _user.phone %></td>
+        </tr>
+        <tr>
+          <td>Email</td>
+          <td><%= _user.email %></td>
+        </tr>
+        <tr>
+          <td>Role</td>
+          <td><%= _user.role %></td>
+        </tr>
+        <tr>
+          <td>Date of Birth</td>
+          <td><%= new Date(_user.dob).toLocaleDateString()%></td>
+        </tr>
+
+        <tr>
+          <td>Status</td>
+          <td><%= _user.status %></td>
+        </tr>
+        <tr>
+          <td>Since</td>
+          <td><%= new Date(_user.createdAt).toLocaleDateString() %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</main>

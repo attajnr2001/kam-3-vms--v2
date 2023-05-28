@@ -1,0 +1,27 @@
+<%- include("../partials/navbar.ejs") %>
+<main class="my-3 container-fluid">
+  <h1 class="h5 text-danger fw-500">EDIT USER</h1>
+
+  <div class="editForm">
+    <form
+      action="/users/edit/<%= user._id %>/editUser/<%= _user._id %>"
+      method="post"
+    >
+      <div class="my-3">
+        <label class="form-label">Role</label>
+        <select name="role" class="form-select">
+          <option value="admin" <%= _user.role === 'admin' ? 'selected' : '' %>>Admin</option>
+          <option value="supervisor" <%= _user.role === 'supervisor' ? 'selected' : '' %>>Supervisor</option>
+        </select>
+      </div>
+      <div class="my-3">
+        <label class="form-label">Status</label>
+        <select name="status" class="form-select">
+          <option value="active" <%= _user.status === 'active' ? 'selected' : '' %>>active</option>
+          <option value="inactive" <%= _user.status === 'inactive' ? 'selected' : '' %>>inactive</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-secondary">Update User</button>
+    </form>
+  </div>
+</main>

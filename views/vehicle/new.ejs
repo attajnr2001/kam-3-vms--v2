@@ -1,0 +1,86 @@
+<%- include("../partials/navbar.ejs") %>
+<main class="main my-3 container-fluid">
+  <h1 class="h5 text-danger fw-500">ADD CUSTOMER</h1>
+
+  <div class="customerForm newForm">
+    <%- include("../partials/messages.ejs") %>
+    <form action="/users/new/<%= user._id %>/newVehicle" method="post">
+      <div class="my-3">
+        <label class="form-label">Customer</label>
+        <select name="owner" id="owner" class="form-select">
+          <% customers.forEach(owner => { %> <% if (owner.id === vehicle.owner)
+          { %>
+          <option
+            selected
+            label="<%= owner.firstName %> <%= owner.lastName %>"
+            value="<%= owner.id %>"
+          ></option>
+          <% } else {%>
+          <option
+            label="<%= owner.firstName %> <%= owner.lastName %>"
+            value="<%= owner.id %>"
+          ></option>
+          <% } %> <% }); %>
+        </select>
+      </div>
+      <div class="my-3">
+        <label class="form-label">Number</label>
+        <input type="text" name="number" class="form-control" />
+      </div>
+      <div class="my-3">
+        <label class="form-label">Brand</label>
+        <input type="text" name="name" class="form-control" />
+      </div>
+      <div class="my-3">
+        <label class="form-label">Color</label>
+        <input type="text" name="color" class="form-control" />
+      </div>
+      <div class="my-3">
+        <label class="form-label">RoadWorthy Starts</label>
+        <input type="date" id="issueDate" name="rwStart" class="form-control" />
+      </div>
+      <div class="my-3">
+        <label class="form-label">RoadWorthy Renew on</label>
+        <input type="date" id="nextRenewal" name="rwRenew" class="form-control" />
+      </div>
+      <div class="my-3">
+        <label class="form-label">Insurance Type</label>
+        <select name="insType" class="form-select">
+          <option value="Life">Life</option>
+          <option value="Property">Property</option>
+        </select>
+      </div>
+      <div class="my-3">
+        <label class="form-label">Use</label>
+        <select name="use" class="form-select">
+          <option value="Commercial">Commercial</option>
+          <option value="Private">Private</option>
+        </select>
+      </div>
+      <div class="my-3">
+        <label class="form-label">Insurance Company</label>
+        <input type="text" name="insCompany" class="form-control" />
+      </div>
+
+      <button type="submit" class="btn btn-secondary">Add Vehicle</button>
+    </form>
+  </div>
+</main>
+
+<script>
+  const issueDateInput = document.getElementById("issueDate");
+  const lRenewOneInput = document.getElementById("nextRenewal");
+
+  function addDaysToDate(date, days) {
+    const result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
+  }
+
+  issueDateInput.addEventListener("change", function () {
+    const issueDate = new Date(issueDateInput.value);
+    const lRenewOneDate = addDaysToDate(issueDate, 363);
+
+    lRenewOneInput.value = lRenewOneDate.toISOString().slice(0, 10);
+  });
+</script>
