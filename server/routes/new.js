@@ -10,7 +10,7 @@ router.post("/:_id/newCustomer", controller.newCustomer);
 router.post("/:_id/newVehicle", controller.newVehicle);
 
 
-/*post new User route */
+/*post new staff route */
 router.post("/:_id/newUser", controller.newUser);
 
 module.exports = router;

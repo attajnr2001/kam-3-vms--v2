@@ -1,7 +1,12 @@
 <link rel="stylesheet" href="/css/dashboard.css" />
 <%- include("./partials/navbar.ejs") %>
 
+<button id="scrollToTopButton" onclick="scrollToTop()" title="Scroll to Top">
+  Top
+</button>
+
 <main class="container-fluid">
+  <%- include("./partials/messages.ejs") %>
   <section class="my-3" id="customers">
     <div class="heading">
       <h2 class="h5 text-danger fw-500">
@@ -74,7 +79,7 @@
     </div>
   </section>
 
-<!-- Vehicle Section -->
+  <!-- Vehicle Section -->
   <section class="my-3" id="vehicles">
     <div class="heading">
       <h2 class="h5 text-danger fw-500">
@@ -92,7 +97,7 @@
       <div class="each d-flex justify-content-between align-items-center my-3">
         <div class="left d-flex justify-content-between align-items-center">
           <div class="det">
-            <p class="name m-0"><%= elt.name %> - <%= elt.number %></p>
+            <p class="name m-0"><b> <%= elt.number %></b>: <%= elt.name %></p>
             <span class="createdAt text-danger"
               ><%= new Date(elt.createdAt).toLocaleDateString()%></span
             >
@@ -113,8 +118,7 @@
     </div>
   </section>
 
-
-<!-- Staff Section -->
+  <!-- Staff Section -->
   <section class="my-3">
     <div class="heading" id="users">
       <h2 class="h5 text-danger fw-500">
@@ -132,7 +136,7 @@
       <div class="each d-flex justify-content-between align-items-center my-3">
         <div class="left d-flex justify-content-between align-items-center">
           <div class="det">
-            <p class="name m-0"><%= elt.firstName %>  <%= elt.lastName %></p>
+            <p class="name m-0"><%= elt.firstName %> <%= elt.lastName %></p>
             <span class="createdAt text-danger"
               ><%= new Date(elt.createdAt).toLocaleDateString()%></span
             >
@@ -146,7 +150,6 @@
             <a href="/users/<%= user._id %>/user/<%= elt._id %>/edit"
               ><i class="bi bi-pencil-square p-2 text-info"></i
             ></a>
-            
           </div>
         </div>
       </div>
@@ -154,3 +157,25 @@
     </div>
   </section>
 </main>
+
+<script>
+  window.onscroll = function () {
+    scrollFunction();
+  };
+
+  function scrollFunction() {
+    if (
+      document.body.scrollTop > 20 ||
+      document.documentElement.scrollTop > 20
+    ) {
+      document.getElementById("scrollToTopButton").style.display = "block";
+    } else {
+      document.getElementById("scrollToTopButton").style.display = "none";
+    }
+  }
+
+  function scrollToTop() {
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
+  }
+</script>

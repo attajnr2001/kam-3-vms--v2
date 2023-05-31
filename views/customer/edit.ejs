@@ -3,6 +3,7 @@
   <h1 class="h5 text-danger fw-500">EDIT CUSTOMER</h1>
 
   <div class="editForm">
+    <%- include("../partials/messages.ejs") %>
     <form
       action="/users/edit/<%= user._id %>/editCustomer/<%= customer._id %>"
       method="post"
@@ -124,3 +125,25 @@
     </form>
   </div>
 </main>
+
+<script>
+
+  const issueDateInput = document.getElementById("issueDate");
+  const lRenewOneInput = document.getElementById("nextRenewal");
+  const lExpiryInput = document.getElementById("lExpiry");
+
+  function addDaysToDate(date, days) {
+    const result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
+  }
+
+  issueDateInput.addEventListener("change", function () {
+    const issueDate = new Date(issueDateInput.value);
+    const lRenewOneDate = addDaysToDate(issueDate, 363);
+    const lExpiryDate = addDaysToDate(issueDate, 1826);
+
+    lRenewOneInput.value = lRenewOneDate.toISOString().slice(0, 10);
+    lExpiryInput.value = lExpiryDate.toISOString().slice(0, 10);
+  });
+</script>

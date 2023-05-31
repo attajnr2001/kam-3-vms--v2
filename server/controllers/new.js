@@ -3,6 +3,7 @@ const Customer = require("../../models/Customer");
 const Vehicle = require("../../models/Vehicle");
 const axios = require("axios");
 const bcrypt = require("bcryptjs");
+
 const imageMimeTypes = ["image/jpeg", "image/png", "image/gif"];
 
 /* new Customer */
@@ -37,25 +38,17 @@ exports.newCustomer = async (req, res) => {
 
     try {
       const newCustomer = await customer.save();
+      req.flash("success_msg", "Customer added successfully");
       res.redirect(`/users/${_id}`);
     } catch (error) {
-      console.log(error);
+      req.flash("error_msg", "Customer added failed");
+      res.redirect(`/users/${_id}/newCustomer`);
     }
   } catch (error) {
     errors.push({ msg: "Something went wrong" });
     res.render("customer/new");
-    console.log(error);
   }
 };
-
-function saveCover(customer, coverEncoded) {
-  if (coverEncoded == null) return;
-  const cover = JSON.parse(coverEncoded);
-  if (cover != null && imageMimeTypes.includes(cover.type)) {
-    customer.coverImage = new Buffer.from(cover.data, "base64");
-    customer.coverImageType = cover.type;
-  }
-}
 
 /* new Vehicle */
 exports.newVehicle = async (req, res) => {
@@ -84,20 +77,22 @@ exports.newVehicle = async (req, res) => {
     try {
       // Save the new vehicle to the database
       const newVehicle = await vehicle.save();
+      req.flash("success_msg", "Vehicle added successfully");
       res.redirect(`/users/${_id}`);
     } catch (error) {
-      console.log(error);
+      req.flash("error_msg", "Vehicle added failed");
+      res.redirect(`/users/${_id}/newVehicle`);
     }
   } catch (error) {
     console.log(error);
   }
 };
 
+/* new Staff */
 exports.newUser = async (req, res) => {
+  const { _id } = req.params;
 
-   const { _id } = req.params;
-   
-let errors = [];
+  let errors = [];
 
   const {
     firstName,
@@ -131,7 +126,7 @@ let errors = [];
       userRole,
       errors,
     });
-  }else{
+  } else {
     User.findOne({ email: email }).then(async (user) => {
       if (user) {
         errors.push({ msg: "email already exists" });
@@ -147,7 +142,7 @@ let errors = [];
           userRole,
           errors,
         });
-      }else{
+      } else {
         try {
           const response = await axios.get("http://worldtimeapi.org/api/ip");
           const { utc_datetime } = response.data;
@@ -166,12 +161,27 @@ let errors = [];
           });
 
           await user.save();
+          req.flash("success_msg", "User added successfully");
           res.redirect(`/users/${_id}`);
-          console.log("User created successfully");
         } catch (error) {
-          console.log(error);
+          req.flash("error_msg", "User added failed");
+          res.redirect(`/users/${_id}/newStaff`);
         }
       }
-    })
-  } 
+    });
+  }
 };
+
+/**
+ * functions
+ * save file cover as binary
+ */
+
+function saveCover(customer, coverEncoded) {
+  if (coverEncoded == null) return;
+  const cover = JSON.parse(coverEncoded);
+  if (cover != null && imageMimeTypes.includes(cover.type)) {
+    customer.coverImage = new Buffer.from(cover.data, "base64");
+    customer.coverImageType = cover.type;
+  }
+}

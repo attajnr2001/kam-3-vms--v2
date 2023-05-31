@@ -1,8 +1,9 @@
 <%- include("../partials/navbar.ejs") %>
 <main class="main my-3 container-fluid">
-  <h1 class="h5 text-danger fw-500">ADD CUSTOMER</h1>
+  <h1 class="h5 text-danger fw-500">ADD VEHICLE</h1>
 
   <div class="customerForm newForm">
+    <%- include("../partials/messages.ejs") %>
     <%- include("../partials/messages.ejs") %>
     <form action="/users/new/<%= user._id %>/newVehicle" method="post">
       <div class="my-3">

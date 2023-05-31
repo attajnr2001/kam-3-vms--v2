@@ -39,23 +39,17 @@ exports.editCustomer = async (req, res) => {
     }
 
     await customer.save();
+    req.flash("success_msg", "Customer Updated");
     res.redirect(`/users/${_id}`);
   } catch (error) {
-    console.log(error);
+    req.flash("error_msg", "Customer was not Updated");
+    res.redirect(`/users/${_id}/customer/${customerId}/edit`);
   }
 };
 
-function saveCover(customer, coverEncoded) {
-  if (coverEncoded == null) return;
-  const cover = JSON.parse(coverEncoded);
-  if (cover != null && imageMimeTypes.includes(cover.type)) {
-    customer.coverImage = new Buffer.from(cover.data, "base64");
-    customer.coverImageType = cover.type;
-  }
-}
+
 
 /* edit vehicle route */
-
 exports.editVehicle = async (req, res) => {
   const { _id, vehicleId } = req.params;
 
@@ -73,15 +67,18 @@ exports.editVehicle = async (req, res) => {
 
     try {
       const newVehicle = await vehicle.save();
+      req.flash("success_msg", "Vehicle Updated");
       res.redirect(`/users/${_id}`);
     } catch (error) {
       console.log(error);
     }
   } catch (error) {
-    console.log(error);
+    req.flash("error_msg", "Vehicle was not Updated");
+    res.redirect(`/users/${_id}/vehicle/${vehicleId}/edit`);
   }
 };
 
+/* edit staff */
 exports.editUser = async (req, res) => {
   const { _id, userId } = req.params;
 
@@ -90,8 +87,23 @@ exports.editUser = async (req, res) => {
       { _id: userId },
       { $set: { status: req.body.status, role: req.body.role } }
     );
+    req.flash("success_msg", "Staff Updated");
     res.redirect(`/users/${_id}`);
   } catch (error) {
-    console.log(error);
+    req.flash("error_msg", "Staff was not Updated");
+    res.redirect(`/users/${_id}/user/${userId}/edit`);
+  }
+}
+
+/**
+ * functions
+ * save cover file as binary
+ */
+function saveCover(customer, coverEncoded) {
+  if (coverEncoded == null) return;
+  const cover = JSON.parse(coverEncoded);
+  if (cover != null && imageMimeTypes.includes(cover.type)) {
+    customer.coverImage = new Buffer.from(cover.data, "base64");
+    customer.coverImageType = cover.type;
   }
 }

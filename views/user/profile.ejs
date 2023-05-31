@@ -3,6 +3,7 @@
   <h1 class="h5 text-danger fw-500">EDIT CUSTOMER</h1>
 
   <div class="editForm">
+    <%- include("../partials/messages.ejs") %>
     <form
       action="/users/<%= user._id %>/profile"
       method="post"

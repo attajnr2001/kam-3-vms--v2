@@ -1,0 +1,89 @@
+<link rel="stylesheet" href="/css/dashboard.css" />
+<%- include("../partials/navbar.ejs") %>
+<main class="my-3 container-fluid">
+  <section class="my-3" id="customers">
+    <h1 class="h5 text-danger fw-500">CUSTOMERS</h1>
+
+    <div class="content my-5">
+      <% if (customers.length === 0) { %>
+      <h1 class="h5 text-danger fw-500">No customers update needed</h1>
+      <% } else {%> <% customers.forEach(elt => { %>
+      <div class="each d-flex justify-content-between align-items-center my-3">
+        <div class="left d-flex justify-content-between align-items-center">
+          <img
+            width="50px"
+            height="50px"
+            src="<%= elt.coverImagePath %>"
+            alt="pic"
+          />
+          <div class="det">
+            <p class="name m-0"><%= elt.firstName %> <%= elt.lastName %></p>
+            <span class="createdAt text-danger"
+              ><%= new Date(elt.createdAt).toLocaleDateString()%></span
+            >
+          </div>
+        </div>
+        <div class="right">
+          <div class="buttons d-flex">
+            <a href="/users/<%= user._id %>/customer/<%= elt._id %>"
+              ><i class="bi bi-eye-fill p-2 text-primary"></i
+            ></a>
+            <a href="/users/<%= user._id %>/customer/<%= elt._id %>/edit"
+              ><i class="bi bi-pencil-square p-2 text-info"></i
+            ></a>
+
+            <form
+              action="/users/<%= user._id %>/customer/<%= elt._id %>/delete"
+              class="deleteForm"
+              method="post"
+            >
+              <button type="submit">
+                <i class="bi bi-trash3 p-2 text-danger"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <% }) %> <% } %>
+    </div>
+  </section>
+
+    <!-- Vehicle Section -->
+    <section class="my-3" id="vehicles">
+      <div class="heading">
+        <h2 class="h5 text-danger fw-500">
+          VEHICLES
+          <a href="/users/<%= user._id %>/newVehicle">
+            <i class="bi bi-plus-square"></i
+          ></a>
+        </h2>
+      </div>
+  
+      <div class="content my-5">
+        <% if (vehicles.length === 0) { %>
+        <h1 class="h5 text-danger fw-500">No vehicles update needed</h1>
+        <% } else {%> <% vehicles.forEach(elt => { %>
+        <div class="each d-flex justify-content-between align-items-center my-3">
+          <div class="left d-flex justify-content-between align-items-center">
+            <div class="det">
+              <p class="name m-0"><%= elt.name %> - <%= elt.number %></p>
+              <span class="createdAt text-danger"
+                ><%= new Date(elt.createdAt).toLocaleDateString()%></span
+              >
+            </div>
+          </div>
+          <div class="right">
+            <div class="buttons d-flex">
+              <a href="/users/<%= user._id %>/vehicle/<%= elt._id %>"
+                ><i class="bi bi-eye-fill p-2 text-primary"></i
+              ></a>
+              <a href="/users/<%= user._id %>/vehicle/<%= elt._id %>/edit"
+                ><i class="bi bi-pencil-square p-2 text-info"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+        <% }) %> <% } %>
+      </div>
+    </section>
+</main>
